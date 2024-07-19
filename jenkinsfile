@@ -43,7 +43,7 @@ pipeline {
               ok "Yes we should"
             }
             steps {
-                echo 'Ready to deploy on Prod"
+                echo 'Ready to deploy on Prod'
             }
          }  
       stage('Deploy on Prod') {
