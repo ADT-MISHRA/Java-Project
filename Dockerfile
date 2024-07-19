@@ -1,6 +1,6 @@
 FROM bellsoft/liberica-runtime-container:jre-slim-glibc
 
-MAINTAINER "Amit Yadav<amit.yadav@50hertz.in>"
+MAINTAINER "Adarsh Mishra<adarsh.mishra@50hertz.in>"
 #RUN apk --no-cache add netcat-openbsd
 COPY chain.pem chain.pem
 RUN keytool -trustcacerts -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -noprompt -importcert -file chain.pem
