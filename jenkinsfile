@@ -1,0 +1,67 @@
+pipeline {
+    agent any
+    environment {
+      name = 'Adarsh'    
+    }
+
+    parameters {
+      string(name : 'person', defaultValue : 'ADARSH MISHRA', description : 'Who are you?')
+      booleanParam(name : 'isMale', defaultValue : true, description : 'This is boolean parameters')
+      choice(name : 'City', choices : ['Jaipur', 'Mumbai', 'Pune'], description : 'Please select your choice')
+    }
+    stages {
+        stage('Run a Command') {
+            steps {
+                sh '''
+			            ls
+			            date
+			            pwd
+			            cal 2024
+		          '''
+            }
+        }
+     stage('Environment Variables') {
+          environment {
+            username = 'myusername'    
+          }
+            steps {
+                sh 'echo "${BUILD_ID}"'
+                sh 'echo "${name}"'
+                sh 'echo "${username}"'
+            }
+         }
+     stage('Parameters') {
+            steps {
+                echo 'Deploy on Test'
+                sh 'echo "${name}"'
+                sh 'echo "${person}"'
+            }
+         }  
+      stage('Continue ?') {
+            input {
+              message "Should we continue ?"
+              ok "Yes we should"
+            }
+            steps {
+                echo 'Ready to deploy on Prod"
+            }
+         }  
+      stage('Deploy on Prod') {
+            steps {
+                echo 'Deploy on Prod'
+            }
+         }  
+    }
+
+  post {
+    always {
+      echo "I will always deploy"
+    }
+    failure {
+      echo "Failure"
+    }
+    success {
+      echo "Success"
+    }
+  }
+}
